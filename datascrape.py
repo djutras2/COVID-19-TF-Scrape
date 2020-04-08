@@ -25,6 +25,7 @@ from urllib.parse import urlparse
 TODO
 
 gather list of health department websites (https://www.cdc.gov/publichealthgateway/healthdirectories/healthdepartments.html)
+
 parse links
 
 save html locally for testing - done
@@ -39,8 +40,8 @@ HD_PATH = "State HD Sites/"
 
 failed = [('Arkansas Department of Health', 'http://www.healthy.arkansas.gov/Pages/default.aspx')]
 
-'''Get the root URL from some URL'''
 def get_url_root(url):
+    '''Get the root URL from some URL'''
     parsed_uri = urlparse(url)
     result = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
     if(result == ":///"):
@@ -52,8 +53,8 @@ def get_url_root(url):
 # print(get_url_root("https://www.alabamapublichealth.gov/calendar/2019/07/hwi-training.html"))
 # print(get_url_root("legal/public-health-laws.html"))
 
-'''Returns a request with specific header information for fetching data from a URL'''
 def create_request(url):
+    '''Returns a request with specific header information for fetching data from a URL'''
     request = Request(url)
     request.add_header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')
     request.add_header('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/605.1.15 (KHTML, like Gecko)Version/12.1.1 Safari/605.1.15')
@@ -62,6 +63,16 @@ def create_request(url):
     return request
 
 def get_soup_from(address):
+    '''
+    Returns a BeautifulSoup object from the contents at this address
+
+    Example:
+    - get_soup_from("https://ready.alaska.gov/covid19")
+    - get_soup_from(HD_PATH + "Alabama Department of Public Health.html")
+
+    Parameters:
+    - address -- a file or url
+    '''
     if(get_url_root(address) == None):
         if os.path.isfile(address):
             return BeautifulSoup(open(address, errors='ignore'), "html.parser")
@@ -77,8 +88,7 @@ def get_soup_from(address):
         content = response.read().decode(charset)
         return BeautifulSoup(content, 'html.parser')
     except:
-        return None
-        
+        return None  
 
 #print(get_soup_from(HD_PATH + "Alabama Department of Public Health.html").title)
 #print(get_soup_from("https://ready.alaska.gov/covid19").title)
@@ -94,6 +104,13 @@ def extract_hds():
     return names, urls
 
 hds = extract_hds()
+
+def save_hd_urls():
+    hds = extract_hds()
+    with open("hd_list", "w") as hd_list:
+        for name, url in zip(hds[0], hds[1]):
+            if not name == None and not url == None:
+                hd_list.write(name + "\t" + url)
 
 def save_html_locally(name, url):
     print("Trying " + name)
@@ -182,12 +199,25 @@ search_words = ["data", "map", "update", "daily", "zip_code", "zip-code", "zipco
 wms_words = ["tableau", "gis", "mapbox", "esri"]
 
 def parse_for_covid(address, url=None, state=None, site_limit = 50, info=None):
+    '''
+    Recursively parses an address for COVID/coronavirus links and files. Returns relevant info.
+    
+    Example:
+    - print_parse_for_covid(HD_PATH + "Oregon Health Authority, Public Health Division.html", "https://www.oregon.gov/oha/ph/pages/index.aspx", state="Oregon", site_limit=50)
+
+    Parameters:
+    - address -- a file or url
+    - url -- url for visiting site references
+    - state -- state that is being searched (will ensure visited sites are relevant to this state)
+    - site-limit -- max number of sites to visit
+    - info -- for recursing, carries information about findings and sites visited
+            - info[0] = visited sites
+            - info[1] = promising sites
+            - info[2] = promising downloads
+            - info[3] = WMSs?
+    '''
     if(info == None):
         info = []
-        # info[0] = visited sites
-        # info[1] = promising sites
-        # info[2] = promising downloads
-        # info[3] = WMSs?
         for i in range(4):
             info.append([]) # three lists, each holding info
 
@@ -279,7 +309,6 @@ def print_parse_for_covid(address, url=None, state=None, site_limit = 50):
 #parse_for_covid(HD_PATH + "Alabama Department of Public Health.html", "https://www.alabamapublichealth.gov/index.html")
 #parse_for_covid(HD_PATH + "Alabama Department of Public Health.html", "https://www.alabamapublichealth.gov/index.html")
 
-print_parse_for_covid(HD_PATH + "Oregon Health Authority, Public Health Division.html", "https://www.oregon.gov/oha/ph/pages/index.aspx", state="Oregon", site_limit=50)
 #print_parse_for_covid(HD_PATH + "South Carolina Department of Health and Environmental Control.html", "https://www.scdhec.gov/", state="South Carolina", site_limit=100)
 
 test_addresses = [("Alabama Department of Public Health.html", "https://www.alabamapublichealth.gov/index.html"), "https://www.oregon.gov/oha/ph/pages/index.aspx"]
@@ -295,7 +324,11 @@ def parse_all_for_covid(addresses):
                 # parse_for_covid(name)
 
 
+def main():
+    print_parse_for_covid(HD_PATH + "Oregon Health Authority, Public Health Division.html", "https://www.oregon.gov/oha/ph/pages/index.aspx", state="Oregon", site_limit=50)
 
+if __name__ == "__main__":
+    main()
 
 
 # Look into this:
