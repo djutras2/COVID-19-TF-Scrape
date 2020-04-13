@@ -1,13 +1,13 @@
 '''Various word collections for use in scraping state hd websites'''
 
 # words that will cause a URL to be skipped
-stop_words = ["guidance", "unemployment", "school", "disabilit", "financial", "you", "homemade", "yourself", "cdc.gov", "masks", "whitehouse.gov", "cloth", "face", "faq", "education", "recommendations", "emotional", "videos", "providers"]
+stop_words = ["ethics", "policy", "symptoms", "flyer", "eviction", "signage", "guidance", "unemployment", "school", "disabilit", "financial", "you", "homemade", "yourself", "cdc.gov", "masks", "whitehouse.gov", "cloth", "face", "faq", "education", "recommendations", "emotional", "videos", "providers"]
 
 # words that will cause a PDF, CSV, etc. to saves
-search_words = ["jurisdiction", "counts", "data", "map", "update", "daily", "zip_code", "zip-code", "zipcode", "code", "numbers", "analysis"]
+search_words = ["locality", "jurisdiction", "counts", "data", "map", "update", "daily", "zip_code", "zip-code", "zipcode", "code", "numbers", "analysis"]
 
 # words that will cause a URL to be saves as a potential WMS
-wms_words = ["tableau", "mapbox", "esri", "leaflet", "openstreetmap"]
+wms_words = ["tableau", "mapbox", "arcgis", "esri", "leaflet", "openstreetmap", "openlayers", "cartodb"]
 
 # list of all states (and DC)
 states = ["Alabama","Alaska","Arizona","Arkansas","California","Colorado",

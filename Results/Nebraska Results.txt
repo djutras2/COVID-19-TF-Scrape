@@ -1,0 +1,10 @@
+
+Nebraska Results:
+
+Related Sites:
+['http://dhhs.ne.gov/Pages/default.aspx', 'http://dhhs.ne.gov//Pages/Coronavirus.aspx', 'http://dhhs.ne.gov//Pages/COVID-19-Directed-Health-Measures.aspx', 'http://dhhs.ne.gov//Pages/COVID-19-State-Overview.aspx', 'http://dhhs.ne.gov//Pages/COVID-19-Information-in-Other-Languages.aspx#vietnamese']
+Potential Files for Download:
+[]
+Potential Web Mapping Services:
+['https://nebraska.maps.arcgis.com/apps/opsdashboard/index.html#/4213f719a45647bc873ffb58783ffef3']
+Time elapsed: 54.33581471443176
