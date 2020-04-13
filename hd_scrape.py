@@ -15,6 +15,7 @@ TODOS?
 - optional printing in parse_for_covid
 """
 
+LOGGING = True
 HD_PATH = "State HD Sites/" # temp
 
 failed = [('Arkansas Department of Health', 'http://www.healthy.arkansas.gov/Pages/default.aspx')]
@@ -116,6 +117,10 @@ def parse_for_covid(address, url=None, state=None, site_limit = 50, info=None):
 
         info[1].append(address) # promising sites
 
+        # GET WMSs
+        if(any(x in soup.getText().lower() for x in wms_words)):
+            info[3].append(address) # potential wms
+
         for tag in soup.find_all("a", href=re.compile("COVID|coronavirus")):
             # get address
             href = tag.get('href')
@@ -150,6 +155,7 @@ def parse_for_covid(address, url=None, state=None, site_limit = 50, info=None):
             # GET WMSs
             if(any(x in href_lower for x in wms_words)):
                 info[3].append(get_href_url(url, href)) # potential wms
+                continue
 
             # RECURSE
             if(len(info[0]) < site_limit):
@@ -173,12 +179,17 @@ def print_parse_for_covid(address, url=None, state=None, site_limit = 50):
     print(results)
     return results
 
+def log(message):
+    if(LOGGING):
+        print(message)
+
 def main():
     #print_parse_for_covid(HD_PATH + "Oregon Health Authority, Public Health Division.html", "https://www.oregon.gov/oha/ph/pages/index.aspx", state="Oregon", site_limit=50)
-    two_test = get_test_hd_tuples(2)
+    # two_test = get_test_hd_tuples(2)
     with open("output.txt", "w") as output_file:
-        for hd in two_test:
-            output_file.write(print_parse_for_covid(hd[1], state=hd[0], site_limit=50))
+        output_file.write(print_parse_for_covid("https://health.utah.gov/", state="Utah", site_limit=50))
+    #     for hd in two_test:
+    #         output_file.write(print_parse_for_covid(hd[1], state=hd[0], site_limit=50))
 
 if __name__ == "__main__":
     main()

@@ -4,10 +4,10 @@
 stop_words = ["guidance", "unemployment", "school", "disabilit", "financial", "you", "homemade", "yourself", "cdc.gov", "masks", "whitehouse.gov", "cloth", "face", "faq", "education", "recommendations", "emotional", "videos", "providers"]
 
 # words that will cause a PDF, CSV, etc. to saves
-search_words = ["data", "map", "update", "daily", "zip_code", "zip-code", "zipcode", "code", "numbers", "analysis"]
+search_words = ["jurisdiction", "counts", "data", "map", "update", "daily", "zip_code", "zip-code", "zipcode", "code", "numbers", "analysis"]
 
 # words that will cause a URL to be saves as a potential WMS
-wms_words = ["tableau", "gis", "mapbox", "esri"]
+wms_words = ["tableau", "mapbox", "esri", "leaflet", "openstreetmap"]
 
 # list of all states (and DC)
 states = ["Alabama","Alaska","Arizona","Arkansas","California","Colorado",
