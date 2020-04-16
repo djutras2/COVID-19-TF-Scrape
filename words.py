@@ -1,7 +1,7 @@
 '''Various word collections for use in scraping state hd websites'''
 
 # words that will cause a URL to be skipped
-stop_words = ["ethics", "policy", "symptoms", "flyer", "eviction", "signage", "guidance", "unemployment", "school", "disabilit", "financial", "you", "homemade", "yourself", "cdc.gov", "masks", "whitehouse.gov", "cloth", "face", "faq", "education", "recommendations", "emotional", "videos", "providers"]
+stop_words = ["facebook", "ethics", "policy", "symptoms", "flyer", "eviction", "signage", "guidance", "unemployment", "school", "disabilit", "financial", "you", "homemade", "yourself", "cdc.gov", "masks", "whitehouse.gov", "cloth", "face", "faq", "education", "recommendations", "emotional", "videos", "providers"]
 
 # words that will cause a PDF, CSV, etc. to saves
 search_words = ["locality", "jurisdiction", "counts", "data", "map", "update", "daily", "zip_code", "zip-code", "zipcode", "code", "numbers", "analysis"]

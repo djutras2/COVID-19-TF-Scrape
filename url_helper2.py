@@ -10,7 +10,7 @@ import os
 
 # https://medium.com/ymedialabs-innovation/web-scraping-using-beautiful-soup-and-selenium-for-dynamic-page-2f8ad15efe25
 
-def get_soup_from(address):
+def get_soup_from(address, require_word=None):
     '''
     Returns a BeautifulSoup object from the contents at this address. To replace url_helper.get_soup_from
 
@@ -37,6 +37,10 @@ def get_soup_from(address):
         
         #driver.implicitly_wait(30)
         driver.get(address)
+
+        if(require_word != None):
+            if(not require_word.lower() in driver.page_source.lower()):
+                return None
 
         all_source = driver.page_source
         iframes = driver.find_elements_by_tag_name(("iframe"))
@@ -68,6 +72,7 @@ def get_soup_from(address):
 
         return BeautifulSoup(all_source, "html.parser")
     except:
+        print(address + " failed to load")
         return None
 
 ### Test ###

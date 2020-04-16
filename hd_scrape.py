@@ -16,6 +16,8 @@ Date: 04/06/20
 TODOS?
 - nebraska broke, arkansas, etc. Need to handle these cases batter
 - optional printing in parse_for_covid
+- getting stuff like mapbox.com, need to make sure sites are relevant to the State before deep diving into iframes. Wasting time.
+- slowwww
 """
 
 LOGGING = True
@@ -106,21 +108,21 @@ def parse_for_covid(address, url=None, state=None, site_limit = 50, info=None):
 
     try:
         # fetch soup for this address
-        soup = get_soup_from(address)
+        soup = get_soup_from(address, state) # added require word to try to narrow down search before searching iframes, speed things up
         if(soup == None):
             # print("Invalid address: " + address)
             return info
 
-        # eliminate unrelated addresses
-        if(state != None and not (state.lower() in soup.getText().lower())):
-            #print("This address is not affiliated with " + state + ": " + address)
-            return info
+        # eliminate unrelated addresses, now done in get_soup_from
+        # if(state != None and not (state.lower() in soup.getText().lower())):
+        #     #print("This address is not affiliated with " + state + ": " + address)
+        #     return info
 
         # print("Trying: " + address)
 
         info[1].append(address) # promising sites
 
-        # GET WMSs
+        # GET WMSs (checks this page for embedded WMSs)
         if(any(x in soup.getText().lower() for x in wms_words)):
             info[3].append(address) # potential wms
 
@@ -128,7 +130,7 @@ def parse_for_covid(address, url=None, state=None, site_limit = 50, info=None):
             # get address
             href = tag.get('href')
             if(href == None):
-                continue;
+                continue
             href_lower = tag.get('href').lower()
 
             # FILTER
@@ -157,12 +159,14 @@ def parse_for_covid(address, url=None, state=None, site_limit = 50, info=None):
                 info[0].append(remove_protocol(get_href_url(url, href))) # visited sites
                 continue
 
-            # CHECK IS WMS
+            # CHECK IS WMS (checks a reference for a potential WMS)
             if(any(x in href_lower for x in wms_words)):
-                info[3].append(get_href_url(url, href)) # potential wms
+                if(not get_href_url(url, href) in info[3]):
+                    info[3].append(get_href_url(url, href)) # potential wms
+                    info[0].append(remove_protocol(get_href_url(url, href))) # visited sites
                 continue
 
-            # RECURSE
+            # RECURSE (goes into an address if it contains reference to covid or corona)
             if(len(info[0]) < site_limit):
                 if(any(x in href_lower for x in ["covid", "corona"])):
                     info = parse_for_covid(get_href_url(url, href), state=state, info=info)
@@ -178,7 +182,7 @@ def print_parse_for_covid(address, url=None, state=None, site_limit = 50):
     if(state==None):
         state = ""
     results = "\n%s Results:\n\nRelated Sites:\n%a\nPotential Files for Download:\n%a\nPotential Web Mapping Services:\n%a\n" %(state, info[1], info[2], info[3])
-    results += "Time elapsed: " + str(time.time() - startTime)
+    results += "Time elapsed: " + str(time.time() - startTime) + "\n"
     print(results)
     return results
 
@@ -186,15 +190,19 @@ def log(message):
     if(LOGGING):
         print(message)
 
+def parse_all_for_covid(hd_tuples):
+    with open("output.txt", "w") as output_file:
+        start_time = time.time()
+        for hd in hd_tuples:
+            output_file.write(print_parse_for_covid(hd[1], state=hd[0], site_limit=50))
+        time_message = "Time elapsed: " + str(time.time() - start_time)
+        output_file.write(time_message)
+        print(time_message)
+
 def main():
     #print_parse_for_covid(HD_PATH + "Oregon Health Authority, Public Health Division.html", "https://www.oregon.gov/oha/ph/pages/index.aspx", state="Oregon", site_limit=50)
     #two_test = get_test_hd_tuples(2)
-
-    with open("output.txt", "w") as output_file:
-        #output_file.write(print_parse_for_covid('http://dhhs.ne.gov/Pages/default.aspx', state="Nebraska", site_limit=10))
-        #output_file.write(print_parse_for_covid("https://health.utah.gov/", state="Utah", site_limit=50))
-        for hd in get_hd_tuples():
-            output_file.write(print_parse_for_covid(hd[1], state=hd[0], site_limit=50))
+    parse_all_for_covid(get_hd_tuples())
 
 if __name__ == "__main__":
     main()
