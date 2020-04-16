@@ -15,6 +15,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from url_helper import download_document
 import csv
 
+from state_helper import header
+
 def fetch_maryland():
     download_document("https://opendata.arcgis.com/datasets/3e378abeb60748a8a8b92e29c14a86d0_0.csv", "MD_source.csv")
 
@@ -22,7 +24,7 @@ def fetch_maryland():
         reader = csv.reader(source)
         with open("MD.csv","w") as result:
             writer = csv.writer(result)
-            writer.writerow(["Zip Code", "Confirmed COVID-19 Cases", "Confirmed COVID-19 Deaths", "Date", "Source URL"])
+            writer.writerow(header)
             for row in reader:
                 writer.writerow([row[1], row[3], "N/A", datetime.date(datetime.now()), "https://opendata.arcgis.com/datasets/3e378abeb60748a8a8b92e29c14a86d0_0.csv"])
     os. remove("MD_source.csv")

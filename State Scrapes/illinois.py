@@ -10,6 +10,8 @@ from selenium.common.exceptions import TimeoutException
 from datetime import datetime
 import os
 
+from state_helper import header
+
 def fetch_illinois(address):
     try:
         #print("trying " + address)

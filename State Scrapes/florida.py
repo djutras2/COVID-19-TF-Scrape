@@ -43,7 +43,6 @@ def get_soup_from(address):
         driver.implicitly_wait(20)
         scroller = driver.find_element_by_xpath('//*[@id="dgrid_0"]/div[2]')
         driver.execute_script('document.getElementsByClassName("dgrid-scroller")[0].scrollTo(0, 0)')
-        # driver.execute_script('define("esri/tasks/support/nls/pbfDeps_en-us",{"esri/layers/vectorTiles/nls/common":{_localized:{}}});')
         
         florida_data = ""
         scroll_to = 0
