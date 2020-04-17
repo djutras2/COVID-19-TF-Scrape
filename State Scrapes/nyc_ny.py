@@ -11,7 +11,7 @@ import csv
 from state_helper import header, is_int
 
 def fetch_nyc():
-    location = "NYC"
+    location = "NYC_NY"
     location_source = location + "_source"
     ext = ".csv"
     url = 'https://raw.githubusercontent.com/nychealth/coronavirus-data/master/tests-by-zcta.csv'
