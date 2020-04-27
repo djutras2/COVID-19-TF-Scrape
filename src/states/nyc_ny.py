@@ -9,7 +9,7 @@ import os, sys
 from src.url_helper import download_document
 import csv
 
-from .state_helper import header, is_int, get_path
+from .state_helper import header, is_int, get_path, write_row
 
 def fetch_nyc():
     location = "NYC_NY"
@@ -24,8 +24,7 @@ def fetch_nyc():
             writer = csv.writer(result)
             writer.writerow(header)
             for row in reader:
-                if(is_int(row[0])):
-                    writer.writerow([row[0], row[1], "N/A", datetime.date(datetime.now()), url])
+                write_row(writer, url, row[0], row[1])
     os.remove(location_source + ext)
 
 # fetch_nyc()

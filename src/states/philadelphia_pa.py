@@ -12,7 +12,7 @@ import os
 
 import csv
 
-from .state_helper import header, is_int, get_path
+from .state_helper import header, is_int, get_path, write_row
 
 def fetch_phil_pa():
     location = "PHIL_PA.csv"
@@ -86,6 +86,6 @@ def fetch_phil_pa():
         writer = csv.writer(out)
         writer.writerow(header)
         for zipcode, cases in dictionary.items():
-            writer.writerow([zipcode, cases, "N/A", datetime.date(datetime.now()), url])
-
+            # writer.writerow([zipcode, cases, "N/A", datetime.date(datetime.now()), url])
+            write_row(writer, url, zipcode, cases)
 # fetch()

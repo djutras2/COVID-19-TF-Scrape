@@ -12,7 +12,7 @@ import os
 
 import csv
 
-from .state_helper import header, is_int, get_path
+from .state_helper import header, is_int, get_path, write_row
 
 def fetch_oakland_mi():
     location = "OAK_MI.csv"
@@ -92,6 +92,6 @@ def fetch_oakland_mi():
             writer = csv.writer(out)
             writer.writerow(header)
             for zipcode, cases in dictionary.items():
-                writer.writerow([zipcode, cases[0], cases[1], datetime.date(datetime.now()), url])
-
+                # writer.writerow([zipcode, extract_cases(cases[0]), extract_cases(cases[1]), datetime.date(datetime.now()), url])
+                write_row(writer, url, zipcode, cases[0], cases[1])
 # fetch()

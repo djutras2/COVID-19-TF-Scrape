@@ -12,7 +12,7 @@ import os
 
 import csv
 
-from .state_helper import header, is_int, get_path
+from .state_helper import header, is_int, get_path, write_row
 
 def fetch_hamilton_oh():
     location = "HAM_OH.csv"
@@ -58,10 +58,10 @@ def fetch_hamilton_oh():
         writer.writerow(header)
         for tag in soup.find_all("tr"):
             tds = tag.find_all("td")
-            zip = tds[0].getText().strip()
+            zipcode = tds[0].getText().strip()
             cases = tds[1].getText().strip()
-
-            if(is_int(zip)):
-                writer.writerow([zip, cases, "N/A", date, url])
+            # if(is_int(zipcode)):
+            #     writer.writerow( [zipcode, extract_cases(cases), "N/A", date, url])
+            write_row(writer, url, zipcode, cases)
 
 # fetch()

@@ -10,7 +10,7 @@ from selenium.common.exceptions import WebDriverException
 from datetime import datetime
 import os
 
-from .state_helper import get_path
+from .state_helper import get_path, extract_cases
 
 def fetch_florida():
     location = "FL.csv"
@@ -84,7 +84,7 @@ def fetch_florida():
             zipcode = tag.find("td", {"class":"field-ZIP"})
             cases = tag.find("td", {"class":"field-Cases_1"})
 
-            line = "%s, %s, %s, %s\n" % (zipcode.getText(), cases.getText(), datetime.date(datetime.now()), url)
+            line = "%s, %s, %s, %s\n" % (zipcode.getText(), extract_cases(cases.getText()), datetime.date(datetime.now()), url)
             out.write(line)
 
 # fetch_florida()

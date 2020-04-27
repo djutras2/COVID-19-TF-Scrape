@@ -10,7 +10,7 @@ from selenium.common.exceptions import WebDriverException
 from datetime import datetime
 import os
 
-from .state_helper import header, get_path
+from .state_helper import header, get_path, extract_cases
 
 def fetch_illinois():
     location = "IL.csv"
@@ -68,7 +68,7 @@ def fetch_illinois():
                 cases = tds[1]
                 deaths = tds[2]
 
-                line = "%s, %s, %s, %s, %s\n" % (zipcode.getText(), cases.getText(), deaths.getText(), date, address)
+                line = "%s, %s, %s, %s, %s\n" % (zipcode.getText(), extract_cases(cases.getText()), deaths.getText(), date, address)
                 out.write(line)
 
 # fetch_illinois("http://www.dph.illinois.gov/covid19/covid19-statistics")

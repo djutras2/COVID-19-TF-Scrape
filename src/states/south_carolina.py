@@ -11,7 +11,7 @@ from datetime import datetime
 import os
 import csv
 
-from .state_helper import header, get_path
+from .state_helper import header, get_path, write_row
 
 def fetch_sc():
     try:
@@ -76,8 +76,9 @@ def fetch_sc():
         writer = csv.writer(out)
         writer.writerow(header)
         for tag in soup.find_all("tr"):
-            zips = tag.find("td", {"class":"field-POSTCODE"})
-            deaths = tag.find("td", {"class":"field-Death"})
-            cases = tag.find("td", {"class":"field-Positive"})
+            zipcode = tag.find("td", {"class":"field-POSTCODE"}).getText()
+            deaths = tag.find("td", {"class":"field-Death"}).getText()
+            cases = tag.find("td", {"class":"field-Positive"}).getText()
 
-            writer.writerow([zips.getText(), cases.getText(), deaths.getText(), date_updated, url])
+            # writer.writerow([zips.getText(), cases.getText(), deaths.getText(), date_updated, url])
+            write_row(writer, url, zipcode, cases, deaths, date = date_updated)

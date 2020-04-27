@@ -14,10 +14,11 @@ import os, sys
 from src.url_helper import download_document
 import csv
 
-from .state_helper import header, is_int, get_path
+from .state_helper import header, is_int, get_path, write_row
 
 def fetch_maryland():
-    download_document("https://opendata.arcgis.com/datasets/3e378abeb60748a8a8b92e29c14a86d0_0.csv", "MD_source.csv")
+    url = "https://opendata.arcgis.com/datasets/3e378abeb60748a8a8b92e29c14a86d0_0.csv"
+    download_document(url, "MD_source.csv")
 
     with open("MD_source.csv","r") as source:
         reader = csv.reader(source)
@@ -25,8 +26,10 @@ def fetch_maryland():
             writer = csv.writer(result)
             writer.writerow(header)
             for row in reader:
-                if(is_int(row[1])):
-                    writer.writerow([row[1], row[3], "N/A", datetime.date(datetime.now()), "https://opendata.arcgis.com/datasets/3e378abeb60748a8a8b92e29c14a86d0_0.csv"])
+                # if(is_int(row[1])):
+                #     writer.writerow([row[1], extract_cases(row[3]), "", datetime.date(datetime.now()), "https://opendata.arcgis.com/datasets/3e378abeb60748a8a8b92e29c14a86d0_0.csv"])
+                write_row(writer, url, row[1], row[3])
+    
     os. remove("MD_source.csv")
 
     #soup = BeautifulSoup(table_html, "html.parser")
