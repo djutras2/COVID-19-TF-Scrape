@@ -1,0 +1,14 @@
+
+export csv from usafacts
+set titles to strings
+ensure data types (.ini?)
+
+link county data
+
+relate county and usafacts data
+
+write python script to create "days in decline" csv with link to county id
+
+host scripts in geoevent service
+
+post service layer to usace
