@@ -32,18 +32,3 @@ def fetch_maryland():
     
     os. remove("MD_source.csv")
 
-    #soup = BeautifulSoup(table_html, "html.parser")
-    # with open("MD.csv", 'w', encoding='utf-8') as out:
-    #     out.write(test)
-    #    out.write("Zip Code, Confirmed COVID-19 Cases,  Confirmed COVID-19 Deaths, Date, Source URL\n")
-    #     for body in soup.find_all("tbody"):
-    #         for row in body.find_all("tr"):
-    #             tds = row.find_all("td")
-    #             zip = tds[0]
-    #             cases = tds[1]
-    #             deaths = tds[2]
-
-    #             line = "%s, %s, %s, %s, %s\n" % (zip.getText(), cases.getText(), deaths.getText(), date, 'https://coronavirus.maryland.gov/')
-    #             out.write(line)
-
-# fetch_maryland()

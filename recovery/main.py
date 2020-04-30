@@ -60,20 +60,27 @@ Col4=stateFIPS Long
             for row in reader:
                 # TODO: insert real days of improvement algorithm
                 days = 0
-                for i in range(len(row) -1, 5, -1):
-                    if(int(row[i]) < int(row[i-1])):
-                        days += 1
-                    else:
-                        break
+                for i in range(len(row) -1, 5 + 3, -1):
+                    day = int(row[i])
+                    day_before = int(row[i - 1])
+                    day_two_before = int(row[i - 2])
+                    three_day_slope = (day - day_two_before
+                    if(int(day - day_before < three_day_slope)):
+                        
+                    # if(int(row[i]) < int(row[i-1])):
+                    #     days += 1
+                    # else:
+                    #     break
 
                 row.append(str(days))
 
                 # row[0] = "'" + row[0] + "'"
 
                 writer.writerow(row)
+
     
-    if not test:
-        os.remove(usafact_cases_filename_temp)
+    # if not test:
+    #     os.remove(usafact_cases_filename_temp)
 
 if __name__ == "__main__":
     if(len(sys.argv) > 1) and os.path.exists(sys.argv[1]):

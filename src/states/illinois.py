@@ -9,8 +9,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import WebDriverException
 from datetime import datetime
 import os
+import csv
 
-from .state_helper import header, get_path, extract_cases
+from .state_helper import header, is_int, get_path, write_row
 
 def fetch_illinois():
     location = "IL.csv"
@@ -27,20 +28,18 @@ def fetch_illinois():
         driver = webdriver.Chrome("./chromedriver.exe", options=options)
         
         driver.get(address)
-        
-        # print(driver.page_source)
 
         driver.implicitly_wait(10)
 
-        driver.find_element_by_xpath('//*[@id="pagin"]/li[38]/a').click()
-
         driver.find_element_by_xpath('//*[@id="content"]/article/div/div/div/ul[1]/li[2]/a').click()
+        driver.find_element_by_xpath('//*[@id="pagin"]/li[46]/a').click()
+        print(driver.find_element_by_link_text("All")).click()
 
-        date = driver.find_element_by_xpath('//*[@id="updatedDate"]').text
+        # date = driver.find_element_by_xpath('//*[@id="updatedDate"]').text
 
         # ensure last element has loaded
-        driver.implicitly_wait(15)
-        driver.find_element_by_xpath('//*[@id="detailedData"]/tbody/tr[369]/td[1]')
+
+        driver.find_element_by_xpath('//*[@id="detailedData"]/tbody/tr[444]/td[1]')
 
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
 
@@ -60,7 +59,9 @@ def fetch_illinois():
     
     soup = BeautifulSoup(table_html, "html.parser")
     with open(os.path.join(get_path(), location), 'w', encoding='utf-8') as out:
-        out.write("Zip Code, Confirmed COVID-19 Cases,  Confirmed COVID-19 Deaths, Date, Source URL\n")
+        writer = csv.writer(out)
+        writer.writerow(header)
+
         for body in soup.find_all("tbody"):
             for row in body.find_all("tr"):
                 tds = row.find_all("td")
@@ -68,7 +69,6 @@ def fetch_illinois():
                 cases = tds[1]
                 deaths = tds[2]
 
-                line = "%s, %s, %s, %s, %s\n" % (zipcode.getText(), extract_cases(cases.getText()), deaths.getText(), date, address)
-                out.write(line)
+                write_row(writer, address, zipcode.getText(), cases.getText(), deaths=deaths.getText())
 
 # fetch_illinois("http://www.dph.illinois.gov/covid19/covid19-statistics")
