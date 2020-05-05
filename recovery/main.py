@@ -91,16 +91,22 @@ Col4=stateFIPS Long
                         # print(pop)
                         # print(10 * pop / 100000.0)
                         # print(two_week_incidence)
-                        if(two_week_incidence <= 10.0 * pop / 100000.0):
+                        if(two_week_incidence <= 10.0 * pop / 100000):
                             days = "low incidence some improvement"
                         # 3) two-week high incidence >= 10 per 100,000 and slope -.1 <= x <= .1 for no more than 5 days
-                        elif(two_week_incidence >= pop / 100,000  and slope >= -.1 and slope <= .1):
+                        elif(two_week_incidence >= 10.0 * pop / 100000  and slope >= -.1 and slope <= .1):
                             days = "high incidence some improvement"
                         # 6) no improvement
                         else:
                             days = "no improvement"
                 else:
                     days = "no cases"
+
+
+                # make fips 5 digits
+                row[0] = str(row[0])
+                while(len(row[0]) < 5):
+                    row[0] = "0" + str(row[0])
 
                 row.append(str(days))
                 writer.writerow(row)
