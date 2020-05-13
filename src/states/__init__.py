@@ -1,5 +1,6 @@
 from .state_helper import set_path
 
+from .va import fetch_virginia
 from .florida import fetch_florida
 from .hamilton_oh import fetch_hamilton_oh
 from .illinois import fetch_illinois

@@ -3,7 +3,6 @@ from src.StandardLogger import StandardLogger
 import os
 import sys
 
-
 def main():
     logger = StandardLogger("main")
     # TODO: this is terrible. Will come back to make this all neater.
@@ -61,6 +60,12 @@ def main():
         states.fetch_florida()
     except Exception as e:
         logger.warn("Unable to scrape data from Florida", e)
+        
+    try:
+        logger.info("Scraping data from Virginia")
+        states.fetch_virginia()
+    except Exception as e:
+        logger.warn("Unable to scrape data from Virginia", e)
 
 
 if __name__ == "__main__":

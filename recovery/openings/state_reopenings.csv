@@ -1,0 +1,56 @@
+StateName, StateCode, StateFIPS, ReopeningDate, Details, Exceptions, Source
+Alabama,AL,"01",,,,
+Alaska,AK,"02",04-24-2020,,,https:--gov.alaska.gov-newsroom-2020-04-21-governor-unveils-path-to-reopening-alaskan-economy-
+Arizona,AZ,"04",05-08-2020,,,https:--www.azcentral.com-story-news-local-arizona-health-2020-05-04-arizona-salons-can-reopen-may-8-dine-restaurants-may-11-3080788001-
+Arkansas,AR,"05",,,,
+California,CA,"06",05-08-2020,Retail stores,"Yuba, Sutter, Modoc opening businesses MAY 4",https:--www.cnbc.com-2020-05-04-california-gov-gavin-newsom-says-some-businesses-will-reopen-friday-with-conditions.html
+Colorado,CO,"08",05-08-2020,"Denver, Jefferson, Boulder, Adams, Arapahoe, Broomfield",Offices in counties that aren't under stay-at-home orders until MAY 8 can return to half capacity on MAY 4,https:--www.denverpost.com-2020-05-03-colorado-offices-reopen-coronavirus-covid-
+Connecticut,CT,"09",,,,
+Delaware,DE,"10",,,,
+Florida,FL,"12",05-04-2020,Certain business will reopen," Broward, Miami-Dade, Palm Beach", https:--www.cnn.com-2020-04-29-us-florida-reopening-coronavirus-index.html
+Georgia,GA,13,,,,
+Hawaii,HI,15,,,,
+Idaho,ID,16,,,,
+Illinois,IL,17,,,,
+Indiana,IN,18,,,,
+Iowa,IA,19,,,,
+Kansas,KS,20,,,,
+Kentucky,KY,21,,,,
+Louisiana,LA,22,,,,
+Maine,ME,23,,,,
+Maryland,MD,24,,,,
+Massachusetts,MA,25,,,,
+Michigan,MI,26,,,,
+Minnesota,MN,27,,,,
+Mississippi,MS,28,,,,
+Missouri,MO,29,,,,
+Montana,MT,30,,,,
+Nebraska,NE,31,05-04-2020,Some restrictions.,"In Dakota County, businesses will still remain closed UFN",https:--ktiv.com-2020-05-01-watch-live-gov-ricketts-provides-daily-update-on-covid-19-in-nebraska-8-
+Nevada,NV,32,,,,
+New Hampshire,NH,33,05-11-2020,Retailers will be allowed a limited number of customers in their stores,Outdoor dining allowed beginning MAY 18,https:--www.nhpr.org-post-gov-sununu-talks-plans-re-opening-new-hampshire-may#stream-0
+New Jersey,NJ,34,,,,
+New Mexico,NM,35,,,,
+New York,NY,36,,,,
+North Carolina,NC,37,05-08-2020,,,https:--www.newsobserver.com-news-coronavirus-article242480391.html
+North Dakota,ND,38,,,,
+Ohio,OH,39,,,,
+Oklahoma,OK,40,,,,
+Oregon,OR,41,,,,
+Pennsylvania,PA,42,05-08-2020,24 counties in northwest and north-central regions of the state.,,https:--www.governor.pa.gov-newsroom-gov-wolf-announces-reopening-of-24-counties-beginning-may-8-
+Rhode Island,RI,44,,,,
+South Carolina,SC,45,,,,
+South Dakota,SD,46,,,,
+Tennessee,TN,47,05-01-2020,Gyms and retailers will be allowed to reopen. Opening dates for certain business are TBD.,"Davidson, Hamilton, Knox, Madison, Shelby, Sullivan",https:--www.wsmv.com-news-tennessee-governor-to-allow-gyms-exercise-facilities-to-reopen-friday-in-89-counties-article_c7a207ae-8988-11ea-85be-a3ef76df7dbe.html
+Texas,TX,48,,,,
+Utah,UT,49,,,,
+Vermont,VT,50,,,,
+Virginia,VA,51,,,,
+Washington,WA,53,,,,
+West Virginia,WV,54,,,,
+Wisconsin,WI,55,,,,
+Wyoming,WY,56,,,,
+American Samoa,AS,60,,,,
+Guam,GU,66,,,,
+Northern Mariana Islands,MP,69,,,,
+Puerto Rico,PR,72,,,,
+Virgin Islands,VI,78,,,,
