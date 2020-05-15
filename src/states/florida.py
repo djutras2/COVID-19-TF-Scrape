@@ -19,14 +19,14 @@ import csv
 
 def fetch_florida():
     location = "FL.csv"
-    url = "https://services1.arcgis.com/CY1LXxl9zlJeBuRZ/ArcGIS/rest/services/COVID_19_Cases_in_Florida_by_Zip_Code/FeatureServer/0"
+    url = "https://services1.arcgis.com/CY1LXxl9zlJeBuRZ/ArcGIS/rest/services/Florida_Cases_Zips_COVID19/FeatureServer/0"
 
     layer = FeatureLayer(url)
-    query = layer.query(out_fields='ZIP,Cases')
+    query = layer.query(out_fields='ZIP,Cases_1')
     
     with open(os.path.join(get_path(), location), 'w', encoding='utf-8') as out:
         writer = csv.writer(out)
         writer.writerow(header)
 
         for feature in query.features:
-            write_row(writer, url, feature.get_value('ZIP'), feature.get_value('Cases'))
+            write_row(writer, url, feature.get_value('ZIP'), feature.get_value('Cases_1'))
