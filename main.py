@@ -4,8 +4,9 @@ import os
 import sys
 
 def main():
-    logger = StandardLogger("main")
     # TODO: this is terrible. Will come back to make this all neater.
+    
+    logger = StandardLogger("main")
 
     try:
         logger.info("Scraping data from Hamilton, Ohio")
