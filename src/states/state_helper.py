@@ -1,5 +1,10 @@
 import re
 from datetime import datetime
+import os
+from arcgis.gis import GIS
+from arcgis.features import FeatureLayer
+
+import csv
 
 header = ["Zip Code", "Confirmed COVID-19 Cases", "Confirmed COVID-19 Deaths", "Date", "Source URL"]
 
@@ -10,10 +15,29 @@ def is_int(value):
     except:
         return False
 
+def is_float(value):
+    try:
+        float(value)
+        return True
+    except:
+        return False
+
 def extract_cases(cases):
-    if(cases == "" or is_int(cases)):
+    if(cases == None):
+        return ""
+
+    if(cases == ""):
         return cases
-    
+
+    if(is_float(cases)):
+        cases = int(float(cases))
+
+    if(is_int(cases)):
+        if(int(cases < 0)):
+            return ""
+        else:
+            return cases
+
     # if("suppress" in cases.lower()):
     #     return ""
 
@@ -44,3 +68,24 @@ def set_path(p):
     print("Setting path to: " + p)
     global path
     path = p
+
+def fetch_from_esri(file_name, url, zip_field, cases_field, deaths_field = ""):
+    layer = FeatureLayer(url)
+
+    # print(layer.properties.fields)
+
+    fields = zip_field + "," + cases_field
+    if(deaths_field != ""):
+        fields += "," + deaths_field
+
+    query = layer.query(out_fields=fields)
+    
+    with open(os.path.join(get_path(), file_name), 'w', encoding='utf-8') as out:
+        writer = csv.writer(out)
+        writer.writerow(header)
+
+        for feature in query.features:
+            if(deaths_field != ""):
+                write_row(writer, url, feature.get_value(zip_field), feature.get_value(cases_field), feature.get_value(deaths_field))
+            else:
+                write_row(writer, url, feature.get_value(zip_field), feature.get_value(cases_field))
