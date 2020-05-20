@@ -8,14 +8,16 @@ to_test = "Arizona"
 
 logger = StandardLogger("main")
 
+
 def log(area, function):
-    if(test and area != to_test):
+    if (test and area != to_test):
         return
     try:
-        logger.info("Scraping data from " + area)
+        logger.info("Scraping data from {}".format(area))
         function()
+        logger.info("Completed scraping data from {}".format(area))
     except Exception as e:
-        logger.warn("Unable to scrape data from " + area, e)
+        logger.warn("Unable to scrape data from {}".format(area), e)
         logger.error(e)
 
 
@@ -44,12 +46,13 @@ def main():
     log("St. Louis, Missouri", states.fetch_st_louis_mo)
 
     log("Florida", states.fetch_florida)
-        
+
     log("Virginia", states.fetch_virginia)
 
+
 if __name__ == "__main__":
-    if(len(sys.argv) > 1) and os.path.exists(sys.argv[1]):
-            states.set_path(sys.argv[1])
+    if (len(sys.argv) > 1) and os.path.exists(sys.argv[1]):
+        states.set_path(sys.argv[1])
     else:
         print("Invalid path.")
         states.set_path(".\\output")
