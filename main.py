@@ -25,6 +25,8 @@ def main():
     # TODO: this is terrible. Will come back to make this all neater.
     # logger = StandardLogger("main")
 
+    log("Oklahoma", states.fetch_oklahoma)
+
     log("Arizona", states.fetch_az)
 
     log("North Carolina", states.fetch_nc)
